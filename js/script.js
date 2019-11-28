@@ -161,13 +161,13 @@ function stopwatchFunctions(getAuftragsnummer, getAbschnittsnummer, getAbschnitt
 
                 getAuftragsnummer: getAuftragsnummer,
                 getAbschnittsnummer, getAbschnittsnummer,
-                time: workHoursConverted,
+                time: workHoursRounded,
                 employee: employee,
                 activity: activity
 
             }, function(data, status) {
 
-                alertMsg = "Folgende Informationen wurden Gespeichert: Auftragsnummer + Abschnittsnummer: " + getAuftragsnummer + "+" + getAbschnittsnummer + "; Zeit, die gemessen wurde: " + displayHours + ":" + displayMinutes + ":" + displaySeconds + " bzw: " + workHoursConverted + "h; Mitarbeiterkürzel: " + employee + ", Tätigkeitsart: " + activity;
+                alertMsg = "Folgende Informationen wurden Gespeichert: Auftragsnummer + Abschnittsnummer: " + getAuftragsnummer + "+" + getAbschnittsnummer + "; Zeit, die gemessen wurde: " + displayHours + ":" + displayMinutes + ":" + displaySeconds + " bzw: " + workHoursRounded + "h; Mitarbeiterkürzel: " + employee + ", Tätigkeitsart: " + activity;
                 alert(alertMsg);
                 window.location.href = 'http://localhost/AppVF/';
 
