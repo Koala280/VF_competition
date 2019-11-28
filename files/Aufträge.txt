@@ -1,0 +1,9 @@
+190123+1 Bestandsplan;Schulauer Stra�e 17, Uetersen;544992,555086117;5948432,29932448
+190123+2 Absteckung;Schulauer Stra�e 17a, Uetersen;544992,555086117;5948432,29932448
+190123+3 Einmessung;Schulauer Stra�e 17a, Uetersen;544992,555086117;5948432,29932448
+170455+1 Lageplan;Borsteler Weg 114, Klein Offenseth-Sparrieshoop;588596,028393217;5661128,35749309
+121007+1 Teilung;Strandweg 12, Pinneberg;544452,555086245;5947832,29922548
+121007+2 Einmessung;Strandweg 12a, Pinneberg;544452,555086245;5947832,29922548
+190045+1 Absteckung/Einmessung - Schmidt;Gottlieb-Daimler-Str. 52a, Hamburg;588596,028393217;5661128,35749309
+190045+2 Absteckung - Daniel;Gottlieb-Daimler-Str. 52a, Hamburg;588596,028393217;5661128,35749309
+190045+3 Lageplan/Absteckung/Einmessung - Voltier;Gottlieb-Daimler-Str. 52a, Hamburg;588596,028393217;5661128,35749309
