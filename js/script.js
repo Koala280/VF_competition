@@ -153,9 +153,9 @@ function stopwatchFunctions(getAuftragsnummer, getAbschnittsnummer, getAbschnitt
 
             employee = $("select[name=nameSelectEmployee]").val();
             activity = $("select[name=nameSelectActivity]").val();
-            workHours = displayHours + displayMinutes/60 + displaySeconds/3600;
-            workHoursConverted = Math.round(parseFloat(workHours)/0.25) * 0.25;
-            alert(workHoursConverted);
+            /* immer Viertelstüdnlich runden */
+            workHours = hours + minutes/60 + seconds/3600;
+            workHoursRounded = Math.round(workHours*4) / 4;
 
             $.post("./includes/messungStartenProcess.php", {
 
@@ -167,7 +167,7 @@ function stopwatchFunctions(getAuftragsnummer, getAbschnittsnummer, getAbschnitt
 
             }, function(data, status) {
 
-                alertMsg = "Folgende Informationen wurden Gespeichert: Auftragsnummer + Abschnittsnummer: " + getAuftragsnummer + "+" + getAbschnittsnummer + "; Zeit, die gemessen wurde: " + displayHours + ":" + displayMinutes + ":" + displaySeconds + "; Mitarbeiterkürzel: " + employee + ", Tätigkeitsart: " + activity;
+                alertMsg = "Folgende Informationen wurden Gespeichert: Auftragsnummer + Abschnittsnummer: " + getAuftragsnummer + "+" + getAbschnittsnummer + "; Zeit, die gemessen wurde: " + displayHours + ":" + displayMinutes + ":" + displaySeconds + " bzw: " + workHoursConverted + "h; Mitarbeiterkürzel: " + employee + ", Tätigkeitsart: " + activity;
                 alert(alertMsg);
                 window.location.href = 'http://localhost/AppVF/';
 
