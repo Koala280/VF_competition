@@ -19,6 +19,10 @@
 </div>
 
 
+<!-- Bei falscher Auswahl Messung zurücksetzen -->
+<div><a class="wrongSelected" href="./index.php">Messung zurücksetzen</a></div>
+
+
 <!-- Zeit messen -->
 <div class="stopwatch">
 

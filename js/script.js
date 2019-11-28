@@ -62,6 +62,8 @@ function auftragsnummerPDFAnzeigen(auftragsnummer) {
         
         $("#pdfViewer").attr("data", "../files/" + auftragsnummer + ".pdf");
         $("#selectAuftrag").css("display", "none");
+        $(".reloadButton").css("display", "unset");;
+        $("#inputAuftragsnummer").val(auftragsnummer);
         
     });
 }
@@ -76,6 +78,7 @@ function stopwatchFunctions(getAuftragsnummer, getAbschnittsnummer, getAbschnitt
         $(".divSelectAuftrag").css("display", "none");
         $(".auftragsnummerInput").css("display", "none");
         $(".divSelectedAuftrag").css("display", "unset");
+        $(".wrongSelected").css("display", "unset");
         $(".selectedAuftrag").html(getAuftragsnummer + "+" + getAbschnittsnummer + " " + getAbschnittsname);
 
 
@@ -109,7 +112,7 @@ function stopwatchFunctions(getAuftragsnummer, getAbschnittsnummer, getAbschnitt
             }
 
             stopwatchRunning = true;
-            stopwatchSetIntervall = setInterval(stopwatch, 1000);
+            stopwatchSetIntervall = setInterval(stopwatch, 1);
 
         })
 
@@ -150,20 +153,21 @@ function stopwatchFunctions(getAuftragsnummer, getAbschnittsnummer, getAbschnitt
 
             employee = $("select[name=nameSelectEmployee]").val();
             activity = $("select[name=nameSelectActivity]").val();
-            time = displayHours + ":" + displayMinutes + ":" + displaySeconds;
-            
+            workHours = displayHours + displayMinutes/60 + displaySeconds/3600;
+            workHoursConverted = Math.round(parseFloat(workHours)/0.25) * 0.25;
+            alert(workHoursConverted);
 
             $.post("./includes/messungStartenProcess.php", {
 
                 getAuftragsnummer: getAuftragsnummer,
                 getAbschnittsnummer, getAbschnittsnummer,
-                time: time,
+                time: workHoursConverted,
                 employee: employee,
                 activity: activity
 
             }, function(data, status) {
 
-                alertMsg = "Folgende Informationen wurden Gespeichert: Auftragsnummer + Abschnittsnummer: " + getAuftragsnummer + "+" + getAbschnittsnummer + "; Zeit, die gemessen wurde: " + time + "; Mitarbeiterkürzel: " + employee + ", Tätigkeitsart: " + activity;
+                alertMsg = "Folgende Informationen wurden Gespeichert: Auftragsnummer + Abschnittsnummer: " + getAuftragsnummer + "+" + getAbschnittsnummer + "; Zeit, die gemessen wurde: " + displayHours + ":" + displayMinutes + ":" + displaySeconds + "; Mitarbeiterkürzel: " + employee + ", Tätigkeitsart: " + activity;
                 alert(alertMsg);
                 window.location.href = 'http://localhost/AppVF/';
 

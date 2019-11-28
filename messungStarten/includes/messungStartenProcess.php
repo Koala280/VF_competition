@@ -13,7 +13,7 @@
 				
 				if (strpos($getAuftragsnummer[0], $inputAuftragsnummer) !== false) {
 					//$getAuftragsnummer[0] = Auftragsnummer; [1] = Abschnitsnummer; [2] = Abschnittsname; [3] = Adresse
-					echo '<p  onclick="stopwatchFunctions(' . $getAuftragsnummer[0] . ', ' . $getAuftragsnummer[1] . ', \'' . $getAuftragsnummer[2] . '\')">' . $getAuftragsnummer[0] . "+" . $getAuftragsnummer[1] . " " . $getAuftragsnummer[2] . "||" . $getAuftragsnummer[3] . "</p>";
+					echo '<p class="optionAuftragsnummer" onclick="stopwatchFunctions(' . $getAuftragsnummer[0] . ', ' . $getAuftragsnummer[1] . ', \'' . $getAuftragsnummer[2] . '\')">' . $getAuftragsnummer[0] . "+" . $getAuftragsnummer[1] . " " . $getAuftragsnummer[2] . "||" . $getAuftragsnummer[3] . "</p>";
 				}
 			}
 		}
@@ -73,11 +73,8 @@
 		$getAbschnittsnummer = $_POST["getAbschnittsnummer"];
 		$employee = $_POST["employee"];
 		$activity = $_POST["activity"];
-		
-		$getWorkHours = explode(":", $time);
-		$workHours = $getWorkHours[0] + $getWorkHours[1]/60 + $getWorkHours[2]/3600;
-		$fileLink = $_SERVER['DOCUMENT_ROOT'] . "/files/Arbeitszeit.txt";
-		$input = $getAuftragsnummer . "+" . $getAbschnittsnummer . ";" . $employee . ";" . $workHours . ";" . $activity . "\n";
+		$fileLink = $_SERVER['DOCUMENT_ROOT'] . "/AppVF/files/Arbeitszeit.txt";
+		$input = $getAuftragsnummer . "+" . $getAbschnittsnummer . ";" . $employee . ";" . $time . ";" . $activity . "\n";
 
 		$file = fopen($fileLink, 'ab');
 		fwrite($file, $input);
