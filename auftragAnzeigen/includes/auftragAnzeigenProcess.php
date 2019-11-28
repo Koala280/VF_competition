@@ -5,7 +5,7 @@ if (isset($_POST["compareNumber"])) {
 	
 	if (!empty($inputAuftragsnummer)) {
 
-		$splitRow = file("http://localhost/files/Aufträge.txt");
+		$splitRow = file("http://localhost/AppVF/files/Aufträge.txt");
 
         foreach ($splitRow as $row) {
 

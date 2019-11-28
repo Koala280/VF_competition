@@ -5,7 +5,7 @@
 		
 		if (!empty($inputAuftragsnummer)) {
 			
-			$splitRow = file("http://localhost/files/Aufträge.txt");
+			$splitRow = file("http://localhost/AppVF/files/Aufträge.txt");
 
 			foreach ($splitRow as $row) {
 
@@ -40,7 +40,7 @@
 	/* Auswahl von Mitarbeiter erstellen, die in der Textdatei gefunden wurden */
 	function selectEmployee() {
 
-        $splitRows = file("http://localhost/files/Mitarbeiter.txt");
+        $splitRows = file("http://localhost/AppVF/files/Mitarbeiter.txt");
 
         foreach ($splitRows as $row) {
 
@@ -54,7 +54,7 @@
     /* Auswahl von Tätigkeitsarten erstellen, die in der Textdatei gefunden wurden */
     function selectActivity() {
 
-        $splitRows = file("http://localhost/files/Tätigkeitsarten.txt");
+        $splitRows = file("http://localhost/AppVF/files/Tätigkeitsarten.txt");
 
         foreach ($splitRows as $row) {
 
