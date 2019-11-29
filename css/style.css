@@ -31,7 +31,7 @@ main {
 
 header {
     position: absolute;
-    height: auto;
+    height: 13vh;
     width: 100%;
     position: -webkit-sticky; /* Safari */
     top: 0;
@@ -45,12 +45,11 @@ header nav {
 
 header nav img {
     float: left;
-    height: auto;
+    height: 10vh;
     padding-top: 1.75vh;
 }
 
 .headerBtns {
-    line-height: 10vh;
     margin-right: 5vh;
     float: right;
     color: #262626;
@@ -176,7 +175,7 @@ footer a {
 
 /****************SMALL*DEVICES*********************/
 
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 694px) {
 
     .logoSmall {
         display: unset;
@@ -193,6 +192,30 @@ footer a {
 
 }
 
-/* html {
-    filter: invert(1) hue-rotate(180deg);
-} */
+@media only screen and (max-width: 435px) {
+
+    .headerBtns {
+        margin-right: 2vh;
+        display: grid;
+    }
+
+    .linkHP {
+        background: #6e6767a6;
+        grid-row: 1;
+        line-height: 4vh;
+        border-radius: 15px;
+        margin: 1vh;
+    }
+
+    .triggerDarkmode {
+        grid-row: 2;
+        border-radius: 12px;
+        background: #6e6767a6;
+    }
+
+    header {
+        height: 5vh;
+        position: relative;
+    }
+
+}

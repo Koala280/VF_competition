@@ -7,10 +7,31 @@ var displayMinutes = 0;
 var displayHours = 0;
 
 var stopwatchRunning = false;
-var stopwatchFirstRun = true;
 
-var darkmode = false;
+var darkmode = localStorage.getItem("darkmode");
 
+/* Change to Dark/Light Mode */
+function triggerDarkmode() {
+    $(document).ready(function() {
+        if (darkmode) {
+            localStorage.setItem("darkmode", "");
+        } else {
+            localStorage.setItem("darkmode", "true");
+        }
+        location.reload();
+    });
+}
+
+/* Logic for Dark/Light mode */
+$(document).ready(function() {
+    if (darkmode) {
+        $(".htmlTag").css("background", "");
+        $(".htmlTag").css("filter", "");
+    } else {
+        $(".htmlTag").css("background", "#262626");
+        $(".htmlTag").css("filter", "invert(1) hue-rotate(180deg)");
+    }
+});
 
 /* Vergleiche eingegebene Zahl /messungStarten/ mit Auftragsnummer in Aufträge.txt */
 function getInputAuftragsnummer() {
@@ -111,12 +132,7 @@ function stopwatchFunctions(getAuftragsnummer, getAbschnittsnummer, getAbschnitt
             return;
         }
 
-        if (stopwatchFirstRun) {
-            stopwatchFirstRun = false;
-
-        }
-
-        stopwatchSetIntervall = setInterval(stopwatch, 1000);
+        stopwatchSetIntervall = setInterval(stopwatch, 10);
         stopwatchRunning = true;
 
         $("#pause").click(function() {
@@ -135,7 +151,7 @@ function stopwatchFunctions(getAuftragsnummer, getAbschnittsnummer, getAbschnitt
             }
 
             stopwatchRunning = true;
-            stopwatchSetIntervall = setInterval(stopwatch, 1);
+            stopwatchSetIntervall = setInterval(stopwatch, 1000);
 
         })
 
@@ -258,19 +274,5 @@ function stopwatch() {
         $("#minutes").html(displayMinutes);
         $("#seconds").html(displaySeconds);
 
-    });
-}
-
-function triggerDarkmode() {
-    $(document).ready(function() {
-        if (darkmode) {
-            $(".htmlTag").css("background", "");
-            $(".htmlTag").css("filter", "");
-            darkmode = false;
-        } else {
-            $(".htmlTag").css("background", "#262626");
-            $(".htmlTag").css("filter", "invert(1) hue-rotate(180deg)");
-            darkmode = true;
-        }
     });
 }

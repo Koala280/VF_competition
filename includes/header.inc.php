@@ -6,7 +6,8 @@
     <img class="logoBig" src="https://vermessung-felshart.de/wp-content/uploads/2015/10/Felshart-Logo-e1445518364174.jpg" alt=""> <!-- für große Geräte -->
 
     <div class="headerBtns">
-        <button onclick="triggerDarkmode()">Akkusparmodus umschalten</button>
-        <a href="http://localhost/AppVF/">Startseite</a>
+        <button class="triggerDarkmode" onclick="triggerDarkmode()">Akkusparmodus</button>
+        <a class="linkHP" href="http://localhost/AppVF/">Startseite</a>
     </div>
+    
 </nav>
