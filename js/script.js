@@ -9,6 +9,8 @@ var displayHours = 0;
 var stopwatchRunning = false;
 var stopwatchFirstRun = true;
 
+var darkmode = false;
+
 
 /* Vergleiche eingegebene Zahl /messungStarten/ mit Auftragsnummer in Aufträge.txt */
 function getInputAuftragsnummer() {
@@ -16,8 +18,6 @@ function getInputAuftragsnummer() {
     $(document).ready(function() {
 
         $("#inputAuftragsnummer").keyup(function() {
-
-            $(".selectAuftragText").css("display", "unset");
 
             var number = $("#inputAuftragsnummer").val();
             $.post("./includes/messungStartenProcess.php", {
@@ -33,7 +33,7 @@ function getInputAuftragsnummer() {
     });
 }
 
-/* Vergleiche eingegebene Zahl /auftragAnezigen/ mit Auftragsnummer in Aufträge.txt */
+/* Vergleiche eingegebene Zahl /auftragAnzeigen/ mit Auftragsnummer in Aufträge.txt */
 function getInputAuftragsnummerPDF() {
 
     $(document).ready(function() {
@@ -41,6 +41,7 @@ function getInputAuftragsnummerPDF() {
         $("#inputAuftragsnummer").keyup(function() {
 
             var number = $("#inputAuftragsnummer").val();
+            
             $.post("./includes/auftragAnzeigenProcess.php", {
 
                 compareNumber: number
@@ -52,6 +53,26 @@ function getInputAuftragsnummerPDF() {
             });
         });
 
+        /* Bestätigen mit Enter statt Auswahl */
+        $("#inputAuftragsnummer").on("keyup", function(e) {
+
+            var auftragsnummer = $("#inputAuftragsnummer").val();
+
+            if (e.keyCode === 13) {
+
+                checkIfInputHasSixNums = $("#inputAuftragsnummer").val();
+
+                if (checkIfInputHasSixNums > 99999 && 100000 < checkIfInputHasSixNums) {
+
+                    auftragsnummerPDFAnzeigen(auftragsnummer)
+
+                } else {
+
+                    $("#pdfViewer").html("Bitte eine ! 6 ! Stellige Auftragsnummer eingeben");
+                    
+                }
+            }
+        });
     });
 }
 
@@ -60,13 +81,16 @@ function auftragsnummerPDFAnzeigen(auftragsnummer) {
 
     $(document).ready(function() {
         
+        $(".hideTitle").css("display", "none");
         $("#pdfViewer").attr("data", "../files/" + auftragsnummer + ".pdf");
+        $("#pdfViewer").html("Keine PDF zu der Auftragsnummer Gefunden");
         $("#selectAuftrag").css("display", "none");
         $(".reloadButton").css("display", "unset");;
         $("#inputAuftragsnummer").val(auftragsnummer);
         
     });
 }
+
 
 /* Stoppuhr mit Buttons  */
 function stopwatchFunctions(getAuftragsnummer, getAbschnittsnummer, getAbschnittsname) {
@@ -78,7 +102,6 @@ function stopwatchFunctions(getAuftragsnummer, getAbschnittsnummer, getAbschnitt
         $(".divSelectAuftrag").css("display", "none");
         $(".auftragsnummerInput").css("display", "none");
         $(".divSelectedAuftrag").css("display", "unset");
-        $(".wrongSelected").css("display", "unset");
         $(".selectedAuftrag").html(getAuftragsnummer + "+" + getAbschnittsnummer + " " + getAbschnittsname);
 
 
@@ -140,8 +163,16 @@ function stopwatchFunctions(getAuftragsnummer, getAbschnittsnummer, getAbschnitt
 
             stopwatchRunning = false;
             clearInterval(stopwatchSetIntervall);
+            /* immer Viertelstündlich gemessene Zeit runden */
+            workHours = hours + minutes/60 + seconds/3600;
+            workHoursRounded = Math.round(workHours*4) / 4;
 
-            alert("Die gespeicherte Zeit: " + displayHours + ":" + displayMinutes + ":" + displaySeconds);
+            /* Falls Messung weniger als 7.5 (wird auf 0 abgerundet und somit keine Arbeitszeit vorhanden) Minuten dauert wird genaue Zeit angegeben */
+            if (workHoursRounded === 0) {
+                workHoursRounded = Math.round(workHours*100) / 100;
+            }
+
+            alert("Die gespeicherte Zeit: " + displayHours + ":" + displayMinutes + ":" + displaySeconds + " bzw: " + workHoursRounded + "h");
 
             $(".selectEmployeeAndActivity").css("display", "unset");
             $("#safeArbeitszeit").css("display", "unset");
@@ -151,11 +182,17 @@ function stopwatchFunctions(getAuftragsnummer, getAbschnittsnummer, getAbschnitt
         /* Alle Einträge sammeln für Arbeitszeit.txt und an php logik schicken -> zurück zur Startseite */
         $("#safeArbeitszeit").click(function() {
 
-            employee = $("select[name=nameSelectEmployee]").val();
-            activity = $("select[name=nameSelectActivity]").val();
-            /* immer Viertelstüdnlich runden */
+            /* immer Viertelstündlich gemessene Zeit runden */
             workHours = hours + minutes/60 + seconds/3600;
             workHoursRounded = Math.round(workHours*4) / 4;
+
+            /* Falls Messung weniger als 7.5 (wird auf 0 abgerundet und somit keine Arbeitszeit vorhanden) Minuten dauert wird genaue Zeit angegeben */
+            if (workHoursRounded === 0) {
+                workHoursRounded = Math.round(workHours*100) / 100;
+            }
+
+            employee = $("select[name=nameSelectEmployee]").val();
+            activity = $("select[name=nameSelectActivity]").val();
 
             $.post("./includes/messungStartenProcess.php", {
 
@@ -221,5 +258,19 @@ function stopwatch() {
         $("#minutes").html(displayMinutes);
         $("#seconds").html(displaySeconds);
 
+    });
+}
+
+function triggerDarkmode() {
+    $(document).ready(function() {
+        if (darkmode) {
+            $(".htmlTag").css("background", "");
+            $(".htmlTag").css("filter", "");
+            darkmode = false;
+        } else {
+            $(".htmlTag").css("background", "#262626");
+            $(".htmlTag").css("filter", "invert(1) hue-rotate(180deg)");
+            darkmode = true;
+        }
     });
 }

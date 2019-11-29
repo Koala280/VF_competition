@@ -1,5 +1,7 @@
+<? session_start(); ?>
+
 <!DOCTYPE html>
-<html><!----------------------------------------------Auftrag (PDF) anzeigen--------------------------------------------------->
+<html class="htmlTag"><!------------------------------------------Auftrag (PDF) anzeigen--------------------------------------------------->
 
 	<head> <? include("../includes/head.inc.php"); ?> </head>
 

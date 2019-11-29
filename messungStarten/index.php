@@ -1,10 +1,12 @@
 <?
+session_start(); 
+
 /*********************************Messung Starten**********************************************/
     include_once("./includes/messungStartenProcess.php");
 ?>
 
 <!DOCTYPE html>
-<html>
+<html class="htmlTag">
 
 	<head> <? include("../includes/head.inc.php"); ?> </head>
 	<script>getInputAuftragsnummer();</script>

@@ -5,6 +5,8 @@
 		
 		if (!empty($inputAuftragsnummer)) {
 			
+			echo '<h3 class="selectAuftragText">Bitte Auftrag Auswählen</h3>';
+
 			$splitRow = file("http://localhost/AppVF/files/Aufträge.txt");
 
 			foreach ($splitRow as $row) {
@@ -13,7 +15,7 @@
 				
 				if (strpos($getAuftragsnummer[0], $inputAuftragsnummer) !== false) {
 					//$getAuftragsnummer[0] = Auftragsnummer; [1] = Abschnitsnummer; [2] = Abschnittsname; [3] = Adresse
-					echo '<p class="optionAuftragsnummer" onclick="stopwatchFunctions(' . $getAuftragsnummer[0] . ', ' . $getAuftragsnummer[1] . ', \'' . $getAuftragsnummer[2] . '\')">' . $getAuftragsnummer[0] . "+" . $getAuftragsnummer[1] . " " . $getAuftragsnummer[2] . "||" . $getAuftragsnummer[3] . "</p>";
+					echo '<p class="optionAuftragsnummer" onclick="stopwatchFunctions(' . $getAuftragsnummer[0] . ', ' . $getAuftragsnummer[1] . ', \'' . $getAuftragsnummer[2] . '\')">' . $getAuftragsnummer[0] . "+" . $getAuftragsnummer[1] . " " . $getAuftragsnummer[2] . "</p>";
 				}
 			}
 		}

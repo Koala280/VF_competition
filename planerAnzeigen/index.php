@@ -1,5 +1,7 @@
+<? session_start(); ?>
+
 <!DOCTYPE html>
-<html><!----------------------------------------------Planer (Excel Tabelle) Anzeigen--------------------------------------------------->
+<html class="htmlTag"><!----------------------------------------------Planer (Excel Tabelle) Anzeigen--------------------------------------------------->
 
 	<head> <? include("../includes/head.inc.php"); ?> </head>
 

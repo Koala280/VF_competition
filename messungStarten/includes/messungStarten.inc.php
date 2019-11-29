@@ -1,30 +1,30 @@
 <!-- Eingabe der 6 Stelligen Auftragsnummer - beim Ancklicken Messung Starten und Stoppuhr anzeigen-->
 <div class="auftragsnummerInput">
     <h2>Auftragsnummer Eingeben:</h2>
-    <input name="auftragsnummer" id="inputAuftragsnummer" required type="number" min="100000" max="999999" placeholder="Auftragsnummer">
+    <input name="auftragsnummer" id="inputAuftragsnummer" type="number" min="100000" max="999999" placeholder="Auftragsnummer" require>
 </div>
 
 
 <!-- hier werden gefundenen Aufträge angezeigt -->
 <div class="divSelectAuftrag">
-    <h3 class="selectAuftragText">Bitte Auftrag Auswählen</h3>
     <p id="selectAuftrag"></p>
 </div>
 
 
-<!-- Ausgewählter Auftrag -->
+<!-- Ausgewählter Auftrag + bei falscher Auswahl Messung zurücksetzen-->
 <div class="divSelectedAuftrag">
     <h4>Folgender Auftrag wurde ausgewählt</h4>
     <p class="selectedAuftrag"></p>
+    <div>
+        <a class="wrongSelected" href="./index.php">Messung zurücksetzen</a>
+    </div>
 </div>
-
-
-<!-- Bei falscher Auswahl Messung zurücksetzen -->
-<div><a class="wrongSelected" href="./index.php">Messung zurücksetzen</a></div>
 
 
 <!-- Zeit messen -->
 <div class="stopwatch">
+
+    <br><h4>Messung Läuft</h4>
 
     <!-- Angezeigte Zeit -->
     <div class="stopwatchTime">
@@ -39,7 +39,7 @@
     </div>
 
     <!-- Messung beenden - weitere verborgene Selects anzeigen -->
-    <button id="messungBeenden">messung Beenden</button>
+    <button id="messungBeenden">Messung Beenden</button>
 
 </div>
 
@@ -47,7 +47,7 @@
 <!-- Mitarbeiter und Tätigkeitsart Auswählen -->
 <div class="selectEmployeeAndActivity">
 
-    <h4>Bitte Mitarbeiter und Tätigkeitsart auswählen</h4>
+    <h4>Mitarbeiter und Tätigkeitsart auswählen</h4>
     <div class="selectEmployee">
 
         <select name="nameSelectEmployee" id="idSelectEmployee">
