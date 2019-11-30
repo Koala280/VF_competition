@@ -1,4 +1,28 @@
-<!-------------------------------------HEAD BEREICH-------------------------------------->
+<? session_start();
+            /*************Head Bereich + anmelden falls angemeldet bleiben aktiviert wurde***************/
+
+    //Cookie abfrage
+    if (isset($_COOKIE["vf_user"]) and isset($_COOKIE["vf_password"])) {
+
+
+        include_once($_SERVER['DOCUMENT_ROOT'] . "/AppVF/includes/connectDB.php");
+        include_once($_SERVER['DOCUMENT_ROOT'] . "/AppVF/login/includes/user.php");
+
+        $db = new db();
+        $user = new user($db);
+
+        $username = $_COOKIE["vf_user"];
+        $password = $_COOKIE["vf_password"];
+
+        $login = $user->login($username, $password);
+
+        if ($login) {
+            $_SESSION['vf_userloggedin'] = true;
+        }
+    
+    }
+?>
+
 <meta charset="UTF-8">
 <meta property="og:title"		content="Vermessung Fehlshart App" />
 <meta property="og:type" 		content="App Wettbewerb" />

@@ -22,6 +22,13 @@ function triggerDarkmode() {
     });
 }
 
+//cookie suchen nach den übergebenen namen
+function getCookieByName(name) {
+    var match = document.cookie.match('(^|[^;]+)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return match ? match.pop() : '';
+}
+
+
 /* Logic for Dark/Light mode */
 $(document).ready(function() {
     if (darkmode) {
@@ -74,7 +81,7 @@ function getInputAuftragsnummerPDF() {
             });
         });
 
-        /* Bestätigen mit Enter statt Auswahl */
+        /* Bestätigen auch mit Enter */
         $("#inputAuftragsnummer").on("keyup", function(e) {
 
             var auftragsnummer = $("#inputAuftragsnummer").val();
@@ -125,23 +132,37 @@ function stopwatchFunctions(getAuftragsnummer, getAbschnittsnummer, getAbschnitt
         $(".divSelectedAuftrag").css("display", "unset");
         $(".selectedAuftrag").html(getAuftragsnummer + "+" + getAbschnittsnummer + " " + getAbschnittsname);
 
-
-        if (stopwatchRunning) {
-            clearInterval(stopwatchSetIntervall);
-            stopwatchRunning = false;
-            return;
-        }
-
-        stopwatchSetIntervall = setInterval(stopwatch, 10);
+        stopwatchSetIntervall = setInterval(stopwatch, 1000);
         stopwatchRunning = true;
 
-        $("#pause").click(function() {
+        /* Messung Fortsetzen oder neue Anfangen */
+        cookieStartTime = getCookieByName("measurementStartTime")
+        getNewDate = new Date();
+        getNewTime = getNewDate.getTime();
+        if (cookieStartTime) {
 
-            if (stopwatchRunning) {
-                stopwatchRunning = false;
-                clearInterval(stopwatchSetIntervall);
+            expiredTime = Math.floor(getNewTime - cookieStartTime);
+            expiredTime = new Date(expiredTime);
+            correctedExpiredTime = expiredTime.setHours(expiredTime.getHours() - 1);
+            correctedExpiredTime = new Date(correctedExpiredTime);
+            
+            
+            var confirm = window.confirm('Wollen sie die letzte Messung fortsetzen? (' + correctedExpiredTime.getHours() + ':' + correctedExpiredTime.getMinutes() + ':' + correctedExpiredTime.getSeconds() + ')');
+            
+            if (confirm) {
+                hours = correctedExpiredTime.getHours();
+                minutes = correctedExpiredTime.getMinutes();
+                seconds = correctedExpiredTime.getSeconds();
+            } else {
+                document.cookie = "measurementStartTime=" + getNewTime;
             }
+            
+        } else {
+            document.cookie = "measurementStartTime=" + getNewTime;
+        }
 
+        $(".wrongSelected").click(function() {
+            document.cookie = "measurementStartTime=";
         })
 
         $("#restart").click(function() {
@@ -150,6 +171,9 @@ function stopwatchFunctions(getAuftragsnummer, getAbschnittsnummer, getAbschnitt
                 return;
             }
 
+            getNewDate = new Date();
+            document.cookie = "measurementStartTime=" + getNewTime;
+
             stopwatchRunning = true;
             stopwatchSetIntervall = setInterval(stopwatch, 1000);
 
@@ -157,6 +181,7 @@ function stopwatchFunctions(getAuftragsnummer, getAbschnittsnummer, getAbschnitt
 
         $("#reset").click(function() {
 
+            document.cookie = "measurementStartTime=";
             stopwatchRunning = false;
             clearInterval(stopwatchSetIntervall);
 
@@ -179,6 +204,7 @@ function stopwatchFunctions(getAuftragsnummer, getAbschnittsnummer, getAbschnitt
 
             stopwatchRunning = false;
             clearInterval(stopwatchSetIntervall);
+            document.cookie = "measurementStartTime=";
             /* immer Viertelstündlich gemessene Zeit runden */
             workHours = hours + minutes/60 + seconds/3600;
             workHoursRounded = Math.round(workHours*4) / 4;

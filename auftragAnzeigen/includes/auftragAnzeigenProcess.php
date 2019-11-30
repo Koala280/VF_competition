@@ -1,31 +1,33 @@
-<?
+<? session_start();
+
+//includes
+include_once($_SERVER['DOCUMENT_ROOT']."/AppVF/includes/connectDB.php");
+
+//get Functions from fromTXT.php instead of fromDB.php
+if (!isset($_COOKIE["getFromDB"])) {
+	setcookie("getFromDB", false, time() + 43200, "/");
+}
+
+//switch between fromTXT.php and fromDB.php
+if ($_COOKIE["getFromDB"]) {
+	include_once($_SERVER['DOCUMENT_ROOT']."/AppVF/includes/fromDB.php"); 
+} else {
+	include_once($_SERVER['DOCUMENT_ROOT']."/AppVF/includes/fromTXT.php");
+}
+
+
+$db = new db();
+$getFuncs = new getFuncs($db);
+
+
 /* Auswahl generieren von den Übereinstimmungen von Suche nach Auftragsnummer */
 if (isset($_POST["compareNumber"])) {
 	$inputAuftragsnummer = $_POST["compareNumber"];
 	
 	if (!empty($inputAuftragsnummer)) {
 
-		$splitRows = file("http://localhost/AppVF/files/Aufträge.txt");
-        $auftragsnummer = array();
+        $getFuncs->getNumForPDF($inputAuftragsnummer);
         
-        foreach ($splitRows as $row) {
-
-            $rowSplitted = explode("+", $row);
-            $auftragsnummer[] = $rowSplitted[0];
-            
-        }
-
-        if (strpos($auftragsnummer[0], $inputAuftragsnummer) !== false) {
-            echo "<h3 class='selectAuftragText'>Auftrag Auswählen</h3>";
-        }
-
-        foreach (array_unique($auftragsnummer) as $a) {
-
-            if (strpos($a, $inputAuftragsnummer) !== false) {
-
-                echo '<p class="optionAuftragsnummer" onclick="auftragsnummerPDFAnzeigen(' . $a . ')">' . $a . "</p>";
-            }
-        }
 	}	
 }
 ?>

@@ -33,7 +33,6 @@
 
     <!-- Stoppuhr Buttons für Korrekturen -->
     <div class="stopwatchControls">
-        <button id="pause">pause</button>
         <button id="restart">restart</button>
         <button id="reset">reset</button>
     </div>
@@ -51,7 +50,7 @@
     <div class="selectEmployee">
 
         <select name="nameSelectEmployee" id="idSelectEmployee">
-            <? selectEmployee(); ?>
+            <? $getFuncs->selectEmployee(); ?>
         </select>
 
     </div>
@@ -59,7 +58,7 @@
     <div class="selectActivity">
 
         <select name="nameSelectActivity" id="idSelectActivity">
-            <? selectActivity(); ?>
+            <? $getFuncs->selectActivity(); ?>
         </select>
 
     </div>

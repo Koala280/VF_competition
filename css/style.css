@@ -79,10 +79,19 @@ header nav a {
     -moz-appearance: button;
     text-decoration: none;
     color: #000;
-    padding: 1em;
+    padding: 4vh;
     display: grid;
-    width: 25vh;
+    width: 35%;
     margin-top: 2vh;
+    font-size: medium;
+}
+
+.toggleGetInfFromDB {
+    display: grid;
+    width: 65%;
+    padding: 4vh;
+    margin-top: 2vh;
+    font-size: medium;
 }
 
 /******************FOOTER*******************/
